@@ -39,13 +39,25 @@ public interface CarSharingMenu {
     }
 
 
-    // TODO: 5/10/2023
     private static void companyList() throws SQLException {
-
+        CompanyDAOImpl cdi = new CompanyDAOImpl();
+        List<Company> li = cdi.getAll();
+        if (li.isEmpty()) {
+            System.out.println("The company list is empty\n");
+        } else {
+            System.out.println("\nCompany list:");
+            for (Company c : li) {
+                System.out.printf("%d. %s\n", c.getID(), c.getName());
+            }
+            System.out.println();
+        }
     }
 
-    // TODO: 5/10/2023
     private static void createCompany(Scanner sc) throws SQLException {
-
+        System.out.println("Enter the company name:");
+        String input = sc.nextLine();
+        CompanyDAOImpl cdi = new CompanyDAOImpl();
+        int result = cdi.insert(new Company(0, input));
+        System.out.println(result);
     }
 }
