@@ -52,10 +52,26 @@ public class CarDAOImpl implements CarDAO {
     @Override
     public int insert(Car car) throws SQLException {
         Connection con = Database.getConnection();
-        String sql = "INSERT INTO COMPANY (name, company_ID) VALUES(?, ?)";
+        String sql = "INSERT INTO car (name, company_ID) VALUES(?, ?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, car.getName());
         ps.setInt(2, car.getCompany_ID());
+        int result = ps.executeUpdate();
+
+        ps.close();
+        con.close();
+
+        return result;
+    }
+
+    @Override
+    public int update(Car car) throws SQLException {
+        Connection con = Database.getConnection();
+        String sql = "UPDATE car SET name = ?, SET company_ID WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, car.getName());
+        ps.setInt(2, car.getCompany_ID());
+        ps.setInt(3, car.getID());
         int result = ps.executeUpdate();
 
         ps.close();
