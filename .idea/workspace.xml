@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dee95597-afde-44a4-93c2-f8d52e0d953a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CarDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CarDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CarDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CarDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
