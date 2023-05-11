@@ -79,4 +79,18 @@ public class CarDAOImpl implements CarDAO {
 
         return result;
     }
+
+    @Override
+    public int delete(Car car) throws SQLException {
+        Connection con = Database.getConnection();
+        String sql = "DELETE FROM car WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, car.getID());
+        int result = ps.executeUpdate();
+
+        ps.close();
+        con.close();
+
+        return result;
+    }
 }
