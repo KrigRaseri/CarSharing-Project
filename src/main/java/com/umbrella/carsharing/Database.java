@@ -36,9 +36,11 @@ public class Database {
             statement.executeUpdate(" CREATE TABLE IF NOT EXISTS CAR " +
                     " (ID INTEGER not NULL AUTO_INCREMENT PRIMARY KEY, " +
                     " NAME VARCHAR(255) UNIQUE NOT NULL, " +
-                    " CONSTRAINT fk_company_ID FOREIGN KEY (company_id) REFERENCES company(ID)");
+                    " company_ID VARCHAR(255) NOT NULL, " +
+                    " CONSTRAINT fk_company FOREIGN KEY (company_ID) " +
+                    " REFERENCES COMPANY(ID) )");
             //statement.executeUpdate("DROP TABLE IF EXISTS COMPANY");
-            //System.out.println("Created table in given database...");
+            System.out.println("Created table in given database...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
