@@ -12,7 +12,7 @@ public class Main {
             JCommanderImpl jcc = new JCommanderImpl();
             JCommander jc = JCommander.newBuilder().addObject(jcc).build();
             jc.parse(args);
-            db = jcc.dbArgs == null ? "carsharing.mv.db" : jcc.dbArgs;
+            db = jcc.dbArgs == null ? "carsharing" : jcc.dbArgs;
 
             Database.createDBTable();
             Database.createCarTable();

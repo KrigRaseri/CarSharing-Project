@@ -11,11 +11,11 @@ public class Database {
 
     public static Connection getConnection() throws SQLException{
         Connection connection = null;
-        return DriverManager.getConnection("jdbc:h2:./src/carsharing/db/" + Main.db);
+        return DriverManager.getConnection("jdbc:h2:./src/main/resources/db/" + Main.db);
     }
 
     public static void createDBTable() {
-        try (Connection con = DriverManager.getConnection("jdbc:h2:./src/carsharing/db/" + Main.db);
+        try (Connection con = DriverManager.getConnection("jdbc:h2:./src/main/resources/db/" + Main.db);
              Statement statement = con.createStatement()) {
 
             statement.executeUpdate(" CREATE TABLE IF NOT EXISTS COMPANY " +
@@ -30,13 +30,13 @@ public class Database {
     }
 
     public static void createCarTable() {
-        try (Connection con = DriverManager.getConnection("jdbc:h2:./src/carsharing/db/" + Main.db);
+        try (Connection con = DriverManager.getConnection("jdbc:h2:./src/main/resources/db/" + Main.db);
              Statement statement = con.createStatement()) {
 
             statement.executeUpdate(" CREATE TABLE IF NOT EXISTS CAR " +
                     " (ID INTEGER not NULL AUTO_INCREMENT PRIMARY KEY, " +
                     " NAME VARCHAR(255) UNIQUE NOT NULL, " +
-                    " company_ID VARCHAR(255) NOT NULL, " +
+                    " company_ID INTEGER NOT NULL, " +
                     " CONSTRAINT fk_company FOREIGN KEY (company_ID) " +
                     " REFERENCES COMPANY(ID) )");
             //statement.executeUpdate("DROP TABLE IF EXISTS COMPANY");
