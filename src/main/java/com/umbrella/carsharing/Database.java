@@ -28,4 +28,19 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    public static void createCarTable() {
+        try (Connection con = DriverManager.getConnection("jdbc:h2:./src/carsharing/db/" + Main.db);
+             Statement statement = con.createStatement()) {
+
+            statement.executeUpdate(" CREATE TABLE IF NOT EXISTS CAR " +
+                    " (ID INTEGER not NULL AUTO_INCREMENT PRIMARY KEY, " +
+                    " NAME VARCHAR(255) UNIQUE NOT NULL, " +
+                    " CONSTRAINT fk_company_ID FOREIGN KEY (company_id) REFERENCES company(ID)");
+            //statement.executeUpdate("DROP TABLE IF EXISTS COMPANY");
+            //System.out.println("Created table in given database...");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

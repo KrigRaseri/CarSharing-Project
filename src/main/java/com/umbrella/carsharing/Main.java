@@ -15,6 +15,7 @@ public class Main {
             db = jcc.dbArgs == null ? "carsharing.mv.db" : jcc.dbArgs;
 
             Database.createDBTable();
+            Database.createCarTable();
             CarSharingMenu.menuInit();
 
         } catch (SQLException e) {
