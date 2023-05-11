@@ -28,4 +28,24 @@ public class CarDAOImpl implements CarDAO {
         }
         return carList;
     }
+
+    @Override
+    public Car get(int id) throws SQLException {
+        Connection con = Database.getConnection();
+        Car car = null;
+
+        String sql = "SELECT id, name FROM car WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            int oid = rs.getInt("id");
+            String name = rs.getString("name");
+            int company_ID = rs.getInt("company_ID");
+            car = new Car(oid, name, company_ID);
+        }
+
+        return car;
+    }
 }
