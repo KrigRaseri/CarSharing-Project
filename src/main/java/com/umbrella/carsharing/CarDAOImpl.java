@@ -15,7 +15,7 @@ public class CarDAOImpl implements CarDAO {
         Car car = null;
 
         Connection con = Database.getConnection();
-        String sql = "SELECT * FROM car";
+        String sql = "SELECT * FROM car WHERE company_ID = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -92,5 +92,25 @@ public class CarDAOImpl implements CarDAO {
         con.close();
 
         return result;
+    }
+
+    public List<Car> getAllFromCompany_ID(int company_ID) throws SQLException {
+        List<Car> carList = new ArrayList<>();
+        Car car = null;
+
+        Connection con = Database.getConnection();
+        String sql = "SELECT * FROM car WHERE company_ID = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, company_ID);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            car = new Car();
+            car.setID(rs.getInt("ID"));
+            car.setName(rs.getString("name"));
+            car.setCompany_ID(rs.getInt("company_ID"));
+            carList.add(car);
+        }
+        return carList;
     }
 }
