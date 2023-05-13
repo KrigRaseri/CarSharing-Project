@@ -45,4 +45,21 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    public static void createCustomerTable() {
+        try (Connection con = DriverManager.getConnection("jdbc:h2:./src/main/resources/db/" + Main.db);
+             Statement statement = con.createStatement()) {
+
+            statement.executeUpdate(" CREATE TABLE IF NOT EXISTS CUSTOMER " +
+                    " (ID INTEGER not NULL AUTO_INCREMENT PRIMARY KEY, " +
+                    " NAME VARCHAR(255) UNIQUE NOT NULL, " +
+                    " company_ID INTEGER NOT NULL, " +
+                    " CONSTRAINT fk_customer FOREIGN KEY (RENTED_CAR_ID) " +
+                    " REFERENCES CAR(ID) )");
+            //statement.executeUpdate("DROP TABLE IF EXISTS COMPANY");
+            System.out.println("Created table in given database...");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
