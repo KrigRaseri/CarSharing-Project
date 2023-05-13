@@ -14,11 +14,15 @@ public interface CarSharingMenu {
             boolean isRun = true;
             while(isRun) {
                 System.out.println("1. Log in as a manager");
+                System.out.println("2. Log in as a customer");
+                System.out.println("3. Create a customer");
                 System.out.println("0. Exit");
 
                 String input = reader.readLine();
                 switch (input) {
-                    case "1" -> logIn(reader);
+                    case "1" -> loginManager(reader);
+                    case "2" -> loginCustomer(reader);
+                    case "3" -> createCustomer(reader);
                     case "0" -> isRun = false;
                     default -> System.out.println("Invalid command");
                 }
@@ -28,8 +32,15 @@ public interface CarSharingMenu {
         }
     }
 
+    private static void createCustomer(BufferedReader reader) {
 
-    private static void logIn(BufferedReader reader) throws SQLException {
+    }
+
+    private static void loginCustomer(BufferedReader reader) {
+
+    }
+
+    private static void loginManager(BufferedReader reader) throws SQLException {
         try {
             boolean isRun = true;
             while(isRun) {
