@@ -79,7 +79,7 @@ public interface CarSharingMenu {
             String input = reader.readLine();
             CompanyDAOImpl cdi = new CompanyDAOImpl();
             int result = cdi.insert(new Company(0, input));
-            System.out.println(result);
+            //System.out.println(result);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -114,11 +114,11 @@ public interface CarSharingMenu {
         List<Car> li = cdi.getAllFromCompany_ID(company_ID);
 
         if (li.isEmpty()) {
-            System.out.println("The car list is empty\n");
+            System.out.println("The car list is empty!\n");
 
         } else {
             System.out.println("\nCar list:");
-            li.forEach((car) -> System.out.printf("%d. %s\n", car.getID(), car.getName()));
+            li.forEach((car) -> System.out.printf("%d. %s\n", li.indexOf(car)+1, car.getName()));
             System.out.println();
         }
     }
@@ -129,7 +129,7 @@ public interface CarSharingMenu {
             String input = reader.readLine();
             CarDAOImpl cdi = new CarDAOImpl();
             int result = cdi.insert(new Car(0, input, company.getID()));
-            System.out.println(result);
+            //System.out.println(result);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
