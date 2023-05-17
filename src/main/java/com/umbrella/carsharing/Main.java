@@ -16,6 +16,7 @@ public class Main {
 
             Database.createDBTable();
             Database.createCarTable();
+            Database.createCustomerTable();
             CarSharingMenu.menuInit();
 
         } catch (SQLException e) {
