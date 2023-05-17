@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dee95597-afde-44a4-93c2-f8d52e0d953a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CustomerDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CompanyDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CompanyDAOImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CustomerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CustomerDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/db/carsharing.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/carsharing.mv.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
