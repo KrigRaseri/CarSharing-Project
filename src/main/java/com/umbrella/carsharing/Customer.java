@@ -11,4 +11,9 @@ public class Customer {
     private int ID;
     private String name;
     private int rentedCarID;
+
+    public Customer(int id, String name) {
+        this.ID = id;
+        this.name = name;
+    }
 }
