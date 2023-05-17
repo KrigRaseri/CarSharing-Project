@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dee95597-afde-44a4-93c2-f8d52e0d953a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CustomerDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/Car.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CarDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CarDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CarSharingMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/CarSharingMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/Company.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/umbrella/carsharing/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/carsharing.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/carsharing.mv.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +23,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -54,7 +52,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;
   }
 }</component>
-  <component name="RunManager" selected="Java Scratch.Example">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.umbrella.carsharing.Main" />
       <module name="CarSharing-Project.main" />
