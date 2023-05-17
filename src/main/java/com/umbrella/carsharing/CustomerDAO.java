@@ -67,7 +67,7 @@ public class CustomerDAO implements DAO<Customer>{
     @Override
     public int update(Customer customer) throws SQLException {
         Connection con = Database.getConnection();
-        String sql = "UPDATE customer SET name = ?, SET rented_car_ID WHERE id = ?";
+        String sql = "UPDATE customer SET name = ?, SET rented_car_ID = ? WHERE id = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, customer.getName());
         ps.setInt(2, customer.getRentedCarID());
@@ -94,7 +94,7 @@ public class CustomerDAO implements DAO<Customer>{
         return result;
     }
 
-    public List<Customer> getAllFromCustomerID(int rentedCarID) throws SQLException {
+    public List<Customer> getAllFromRentedCarID(int rentedCarID) throws SQLException {
         List<Customer> carList = new ArrayList<>();
         Customer customer = null;
 
@@ -112,6 +112,20 @@ public class CustomerDAO implements DAO<Customer>{
             carList.add(customer);
         }
         return carList;
+    }
+
+    public int updateRentedCar(int customerID, int rentID) throws SQLException {
+        Connection con = Database.getConnection();
+        String sql = "UPDATE customer SET rented_car_ID = ? WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, rentID);
+        ps.setInt(2, customerID);
+        int result = ps.executeUpdate();
+
+        ps.close();
+        con.close();
+
+        return result;
     }
 }
 
