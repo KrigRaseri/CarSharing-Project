@@ -23,7 +23,6 @@ public class Database {
                     " NAME VARCHAR(255) UNIQUE NOT NULL, " +
                     " PRIMARY KEY ( ID ))");
             //statement.executeUpdate("DROP TABLE IF EXISTS COMPANY");
-            //System.out.println("Created table in given database...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -40,7 +39,6 @@ public class Database {
                     " CONSTRAINT fk_company FOREIGN KEY (company_ID) " +
                     " REFERENCES COMPANY(ID) )");
             //statement.executeUpdate("DROP TABLE IF EXISTS COMPANY");
-            System.out.println("Created table in given database...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -53,11 +51,10 @@ public class Database {
             statement.executeUpdate(" CREATE TABLE IF NOT EXISTS CUSTOMER " +
                     " (ID INTEGER not NULL AUTO_INCREMENT PRIMARY KEY, " +
                     " NAME VARCHAR(255) UNIQUE NOT NULL, " +
-                    " company_ID INTEGER NOT NULL, " +
-                    " CONSTRAINT fk_customer FOREIGN KEY (RENTED_CAR_ID) " +
+                    " rented_car_id INTEGER, " +
+                    " CONSTRAINT fk_customer FOREIGN KEY (rented_car_id) " +
                     " REFERENCES CAR(ID) )");
             //statement.executeUpdate("DROP TABLE IF EXISTS COMPANY");
-            System.out.println("Created table in given database...");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
