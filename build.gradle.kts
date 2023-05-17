@@ -19,6 +19,8 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
     implementation("com.beust:jcommander:1.82")
     implementation("com.h2database:h2:1.4.200")
+    implementation("ch.qos.logback:logback-classic:1.2.11")
+
 }
 
 tasks.getByName<Test>("test") {
