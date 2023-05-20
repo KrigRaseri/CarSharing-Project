@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Customer {
     private int ID;
     private String name;
-    private int rentedCarID;
+    private Integer rentedCarID;
 
     public Customer(int id, String name) {
         this.ID = id;

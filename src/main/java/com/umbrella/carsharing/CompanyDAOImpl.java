@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompanyDAOImpl implements CompanyDAO {
+public class CompanyDAOImpl implements DAO<Company> {
 
     @Override
     public List<Company> getAll() throws SQLException {
@@ -89,6 +89,21 @@ public class CompanyDAOImpl implements CompanyDAO {
         con.close();
 
         return result;
+    }
+
+    public String getRentedCarCompany(int carID) throws SQLException {
+        Connection con = Database.getConnection();
+        String name = "No rented car company";
+
+        String sql = "SELECT id, name FROM company WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, carID);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()) {
+            name = rs.getString("name");
+        }
+
+        return name;
     }
 }
 

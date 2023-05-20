@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAO implements DAO<Customer>{
+public class CustomerDAOImpl implements DAO<Customer>{
 
     @Override
     public List<Customer> getAll() throws SQLException {
@@ -15,7 +15,7 @@ public class CustomerDAO implements DAO<Customer>{
         Customer customer = null;
 
         Connection con = Database.getConnection();
-        String sql = "SELECT * FROM customer WHERE rented_car_id = ?";
+        String sql = "SELECT * FROM customer";
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -23,7 +23,7 @@ public class CustomerDAO implements DAO<Customer>{
             customer = new Customer();
             customer.setID(rs.getInt("ID"));
             customer.setName(rs.getString("name"));
-            customer.setRentedCarID(rs.getInt("company_ID"));
+            customer.setRentedCarID(rs.getInt("rented_car_id"));
             customerList.add(customer);
         }
         return customerList;
@@ -52,10 +52,9 @@ public class CustomerDAO implements DAO<Customer>{
     @Override
     public int insert(Customer customer) throws SQLException {
         Connection con = Database.getConnection();
-        String sql = "INSERT INTO customer (name, rented_car_id) VALUES(?, ?)";
+        String sql = "INSERT INTO customer (name, rented_car_id) VALUES(?, NULL)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, customer.getName());
-        ps.setInt(2, customer.getRentedCarID());
         int result = ps.executeUpdate();
 
         ps.close();
@@ -94,31 +93,26 @@ public class CustomerDAO implements DAO<Customer>{
         return result;
     }
 
-    public List<Customer> getAllFromRentedCarID(int rentedCarID) throws SQLException {
-        List<Customer> carList = new ArrayList<>();
-        Customer customer = null;
-
+    public String getRentedCar(int carID) throws SQLException {
         Connection con = Database.getConnection();
-        String sql = "SELECT * FROM customer WHERE rented_car_ID = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, rentedCarID);
-        ResultSet rs = ps.executeQuery();
+        String name = "No rented car";
 
-        while (rs.next()) {
-            customer = new Customer();
-            customer.setID(rs.getInt("ID"));
-            customer.setName(rs.getString("name"));
-            customer.setRentedCarID(rs.getInt("company_ID"));
-            carList.add(customer);
+        String sql = "SELECT id, name FROM car WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, carID);
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()) {
+            name = rs.getString("name");
         }
-        return carList;
+
+        return name;
     }
 
-    public int updateRentedCar(int customerID, int rentID) throws SQLException {
+    public int updateRentedCar(int customerID, Integer rentID) throws SQLException {
         Connection con = Database.getConnection();
         String sql = "UPDATE customer SET rented_car_ID = ? WHERE id = ?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, rentID);
+        if(rentID == null) {ps.setNull(1, java.sql.Types.NULL);} else {ps.setInt(1, rentID);}
         ps.setInt(2, customerID);
         int result = ps.executeUpdate();
 

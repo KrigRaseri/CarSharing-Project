@@ -50,7 +50,7 @@ public class Database {
 
             statement.executeUpdate(" CREATE TABLE IF NOT EXISTS CUSTOMER " +
                     " (ID INTEGER not NULL AUTO_INCREMENT PRIMARY KEY, " +
-                    " NAME VARCHAR(255) UNIQUE NOT NULL, " +
+                    " name VARCHAR(255) UNIQUE NOT NULL, " +
                     " rented_car_id INTEGER, " +
                     " CONSTRAINT fk_customer FOREIGN KEY (rented_car_id) " +
                     " REFERENCES CAR(ID) )");

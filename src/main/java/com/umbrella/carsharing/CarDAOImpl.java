@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarDAOImpl implements CarDAO {
+public class CarDAOImpl implements DAO<Car> {
 
     @Override
     public List<Car> getAll() throws SQLException {
