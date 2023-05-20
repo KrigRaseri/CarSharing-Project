@@ -68,7 +68,7 @@ public interface CarSharingMenu {
             } else {
                 System.out.println("\nChoose a customer:");
                 li.forEach((c) -> System.out.printf("%d. %s\n", li.indexOf(c)+1, c.getName()));
-                System.out.println();
+                System.out.println("0. Back");
 
                 customerMenu(reader, li.get(Integer.parseInt(reader.readLine())-1));
             }
@@ -94,16 +94,24 @@ public interface CarSharingMenu {
     //------------------------------ Manager Menu's -----------------------------
     private static void companySelection(BufferedReader reader) throws SQLException {
         try {
-            List<Company> li = cdi.getAll();
-            if (li.isEmpty()) {
-                System.out.println("The company list is empty\n");
+            boolean isRun = true;
+            while (isRun) {
+                List<Company> li = cdi.getAll();
+                if (li.isEmpty()) {
+                    System.out.println("The company list is empty\n");
+                    break;
 
-            } else {
-                System.out.println("\nChoose a company:");
-                li.forEach((company) -> System.out.printf("%d. %s\n", company.getID(), company.getName()));
-                System.out.println();
+                } else {
+                    System.out.println("\nChoose a company:");
+                    li.forEach((company) -> System.out.printf("%d. %s\n", company.getID(), company.getName()));
+                    System.out.println("0. Back");
+                    System.out.println();
 
-                carMenu(reader, li.get(Integer.parseInt(reader.readLine())-1));
+                    int result = Integer.parseInt(reader.readLine());
+                    if (result == 0) {isRun = false; break;}
+                    carMenu(reader, li.get(result-1));
+                    isRun = false;
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
