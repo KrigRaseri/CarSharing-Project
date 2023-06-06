@@ -20,7 +20,7 @@ dependencies {
     implementation("com.beust:jcommander:1.82")
     implementation("com.h2database:h2:1.4.200")
     implementation("ch.qos.logback:logback-classic:1.2.11")
-
+    implementation("com.zaxxer:HikariCP:5.0.1")
 }
 
 tasks.getByName<Test>("test") {
