@@ -15,4 +15,6 @@ public interface CompanyDAO extends DAO<Company> {
     int update(Company company) throws SQLException;
 
     int delete(Company company) throws SQLException;
+
+    String getRentedCarCompany(int carID) throws SQLException;
 }

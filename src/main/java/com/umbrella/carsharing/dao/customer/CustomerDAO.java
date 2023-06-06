@@ -15,4 +15,8 @@ public interface CustomerDAO extends DAO<Customer> {
     int update(Customer customer) throws SQLException;
 
     int delete(Customer customer) throws SQLException;
+
+    String getRentedCar(int carID) throws SQLException;
+
+    int updateRentedCar(int customerID, Integer rentID) throws SQLException;
 }

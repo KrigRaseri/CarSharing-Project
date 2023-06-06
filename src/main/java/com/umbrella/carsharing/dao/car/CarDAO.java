@@ -15,4 +15,6 @@ public interface CarDAO extends DAO<Car> {
     int update(Car car) throws SQLException;
 
     int delete(Car car) throws SQLException;
+
+    List<Car> getAllFromCompany_ID(int companyID);
 }
