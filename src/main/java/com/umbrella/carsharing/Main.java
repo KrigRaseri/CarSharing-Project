@@ -7,6 +7,7 @@ import com.umbrella.carsharing.dao.company.CompanyDAO;
 import com.umbrella.carsharing.dao.company.CompanyDAOImpl;
 import com.umbrella.carsharing.dao.customer.CustomerDAO;
 import com.umbrella.carsharing.dao.customer.CustomerDAOImpl;
+import com.umbrella.carsharing.database.CreateTables;
 import com.umbrella.carsharing.menu.CarSharingMenu;
 import com.umbrella.carsharing.menu.CarSharingMenuImpl;
 
@@ -35,9 +36,10 @@ public class Main {
             jc.parse(args);
             db = jcc.dbArgs == null ? "carsharing" : jcc.dbArgs;
 
-            Database.createDBTable();
-            Database.createCarTable();
-            Database.createCustomerTable();
+            CreateTables.createDBTable();
+            CreateTables.createCarTable();
+            CreateTables.createCustomerTable();
+
             carSharingMenu.menuInit();
 
         } catch (SQLException e) {
