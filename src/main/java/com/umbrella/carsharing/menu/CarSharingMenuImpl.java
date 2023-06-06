@@ -90,7 +90,6 @@ public class CarSharingMenuImpl implements CarSharingMenu {
                 List<Customer> li = customerDAO.getAll();
                 if (li.isEmpty()) {
                     System.out.println("The customer list is empty!\n");
-                    break;
 
                 } else {
                     System.out.println();
@@ -101,8 +100,8 @@ public class CarSharingMenuImpl implements CarSharingMenu {
                     if (input == 0) {break;}
                     System.out.println();
                     customerMenu(reader, li.get(input - 1));
-                    break;
                 }
+                break;
             }
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
@@ -130,7 +129,6 @@ public class CarSharingMenuImpl implements CarSharingMenu {
                 List<Company> li = companyDAO.getAll();
                 if (li.isEmpty()) {
                     System.out.println("The company list is empty\n");
-                    break;
 
                 } else {
                     System.out.println();
@@ -141,8 +139,8 @@ public class CarSharingMenuImpl implements CarSharingMenu {
                     int result = Integer.parseInt(reader.readLine());
                     if (result == 0) {break;}
                     carMenu(reader, li.get(result-1));
-                    break;
                 }
+                break;
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -199,7 +197,7 @@ public class CarSharingMenuImpl implements CarSharingMenu {
 
     private boolean carList(int company_ID) throws SQLException {
         boolean isEmpty = true;
-        List<Car> li = carDAO.getAllFromCompany_ID(company_ID);
+        List<Car> li = carDAO.getAllFromCompanyID(company_ID);
         List<Car> availableCars = li.stream().filter(klo -> !klo.isRented()).toList();
         availableCars.forEach(System.out::println);
 
