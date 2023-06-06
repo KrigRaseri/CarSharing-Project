@@ -1,6 +1,6 @@
 package com.umbrella.carsharing.dao.company;
 
-import com.umbrella.carsharing.Database;
+import com.umbrella.carsharing.database.HikariConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,18 +14,15 @@ public class CompanyDAOImpl implements CompanyDAO {
     @Override
     public List<Company> getAll() throws SQLException {
         List<Company> companyList = new ArrayList<>();
-        Company company = null;
 
-        Connection con = Database.getConnection();
-        String sql = "SELECT * FROM company";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-
-        while (rs.next()) {
-            company = new Company();
-            company.setID(rs.getInt("ID"));
-            company.setName(rs.getString("name"));
-            companyList.add(company);
+        try (Connection con = HikariConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM company");
+             ResultSet rs = ps.executeQuery()
+        ) {
+            while (rs.next()) {
+                Company company = createCompanyFromResultSet(rs);
+                companyList.add(company);
+            }
         }
 
         return companyList;
@@ -33,18 +30,17 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public Company get(int id) throws SQLException {
-        Connection con = Database.getConnection();
         Company company = null;
 
-        String sql = "SELECT id, name FROM company WHERE id = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
+        try (Connection con = HikariConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT id, name FROM company WHERE id = ?");
+             ResultSet rs = ps.executeQuery()
+        ) {
+            ps.setInt(1, id);
 
-        if (rs.next()) {
-            int oid = rs.getInt("id");
-            String name = rs.getString("name");
-            company = new Company(oid, name);
+            if (rs.next()) {
+                company = createCompanyFromResultSet(rs);
+            }
         }
 
         return company;
@@ -52,60 +48,75 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public int insert(Company company) throws SQLException {
-        Connection con = Database.getConnection();
-        String sql = "INSERT INTO COMPANY (name) VALUES(?)";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, company.getName());
-        int result = ps.executeUpdate();
+        int result;
 
-        ps.close();
-        con.close();
+        try (Connection con = HikariConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("INSERT INTO COMPANY (name) VALUES(?)")
+        ) {
+            ps.setString(1, company.getName());
+            result = ps.executeUpdate();
+        }
 
         return result;
     }
 
     @Override
     public int update(Company company) throws SQLException {
-        Connection con = Database.getConnection();
-        String sql = "UPDATE company SET name = ? WHERE id = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, company.getName());
-        ps.setInt(2, company.getID());
-        int result = ps.executeUpdate();
+        int result;
 
-        ps.close();
-        con.close();
+        try (Connection con = HikariConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("UPDATE company SET name = ? WHERE id = ?")
+        ) {
+            ps.setString(1, company.getName());
+            ps.setInt(2, company.getID());
+            result = ps.executeUpdate();
+        }
 
         return result;
     }
 
     @Override
     public int delete(Company company) throws SQLException {
-        Connection con = Database.getConnection();
-        String sql = "DELETE FROM company WHERE id = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, company.getID());
-        int result = ps.executeUpdate();
+        int result;
 
-        ps.close();
-        con.close();
+        try (Connection con = HikariConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("DELETE FROM company WHERE id = ?")
+        ) {
+            ps.setInt(1, company.getID());
+            result = ps.executeUpdate();
+        }
 
         return result;
     }
 
     public String getRentedCarCompany(int carID) throws SQLException {
-        Connection con = Database.getConnection();
         String name = "No rented car company";
 
-        String sql = "SELECT id, name FROM company WHERE id = ?";
-        PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, carID);
-        ResultSet rs = ps.executeQuery();
-        if(rs.next()) {
-            name = rs.getString("name");
+        try (Connection con = HikariConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT id, name FROM company WHERE id = ?");
+             ResultSet rs = ps.executeQuery()
+        ) {
+            ps.setInt(1, carID);
+            if (rs.next()) {
+                name = rs.getString("name");
+            }
         }
 
         return name;
+    }
+
+    /**
+     * Creates a Company object from the current row of the ResultSet.
+     *
+     * @param rs the ResultSet containing company data
+     * @return a Company object
+     * @throws SQLException if a database error occurs
+     */
+    private Company createCompanyFromResultSet(ResultSet rs) throws SQLException {
+        int id = rs.getInt("ID");
+        String name = rs.getString("name");
+
+        return new Company(id, name);
     }
 }
 
