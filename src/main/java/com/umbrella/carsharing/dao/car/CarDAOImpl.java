@@ -1,7 +1,6 @@
 package com.umbrella.carsharing.dao.car;
 
 import com.umbrella.carsharing.Database;
-import com.umbrella.carsharing.dao.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
