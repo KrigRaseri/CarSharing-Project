@@ -21,6 +21,7 @@ dependencies {
     implementation("com.h2database:h2:1.4.200")
     implementation("ch.qos.logback:logback-classic:1.2.11")
     implementation("com.zaxxer:HikariCP:5.0.1")
+    implementation("com.google.inject:guice:7.0.0")
 }
 
 tasks.getByName<Test>("test") {
