@@ -7,12 +7,15 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Handles all the database connections.
+ * */
 public class HikariConnection {
     private static HikariDataSource dataSource;
 
     static {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:h2:./java/com/umbrella/carsharing/db/" + Main.db);
+        config.setJdbcUrl("jdbc:h2:./src/main/resources/db/" + Main.db);
         config.setMinimumIdle(5);
         config.setMaximumPoolSize(10);
         config.setConnectionTimeout(30000);
