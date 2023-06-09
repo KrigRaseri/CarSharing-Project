@@ -11,62 +11,86 @@ import java.util.List;
 
 public class CompanyDAOImpl implements CompanyDAO {
 
+
+    /**
+     * Retrieves all companies from the database.
+     *
+     * @return a list of all companies
+     * @throws SQLException if a database error occurs
+     */
     @Override
     public List<Company> getAll() throws SQLException {
         List<Company> companyList = new ArrayList<>();
 
         try (Connection con = HikariConnection.getConnection();
              PreparedStatement ps = con.prepareStatement("SELECT * FROM company");
-             ResultSet rs = ps.executeQuery()
-        ) {
+             ResultSet rs = ps.executeQuery()) {
+
             while (rs.next()) {
                 Company company = createCompanyFromResultSet(rs);
                 companyList.add(company);
             }
         }
-
         return companyList;
     }
 
+    /**
+     * Retrieves a company by its ID from the database.
+     *
+     * @param id the ID of the company
+     * @return the company with the specified ID, or null if not found
+     * @throws SQLException if a database error occurs
+     */
     @Override
     public Company get(int id) throws SQLException {
         Company company = null;
 
         try (Connection con = HikariConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT id, name FROM company WHERE id = ?");
-             ResultSet rs = ps.executeQuery()
-        ) {
+             PreparedStatement ps = con.prepareStatement("SELECT id, name FROM company WHERE id = ?")) {
             ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 company = createCompanyFromResultSet(rs);
             }
         }
-
         return company;
     }
 
+    /**
+     * Inserts a new company into the database.
+     *
+     * @param company the company to insert
+     * @return the number of rows affected (1 if successful, 0 otherwise)
+     * @throws SQLException if a database error occurs
+     */
     @Override
     public int insert(Company company) throws SQLException {
         int result;
 
         try (Connection con = HikariConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("INSERT INTO COMPANY (name) VALUES(?)")
-        ) {
+             PreparedStatement ps = con.prepareStatement("INSERT INTO COMPANY (name) VALUES(?)")) {
+
             ps.setString(1, company.getName());
             result = ps.executeUpdate();
         }
-
         return result;
     }
 
+    /**
+     * Updates an existing company in the database.
+     *
+     * @param company the company to update
+     * @return the number of rows affected (1 if successful, 0 otherwise)
+     * @throws SQLException if a database error occurs
+     */
     @Override
     public int update(Company company) throws SQLException {
         int result;
 
         try (Connection con = HikariConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("UPDATE company SET name = ? WHERE id = ?")
-        ) {
+             PreparedStatement ps = con.prepareStatement("UPDATE company SET name = ? WHERE id = ?")) {
+
             ps.setString(1, company.getName());
             ps.setInt(2, company.getID());
             result = ps.executeUpdate();
@@ -75,34 +99,24 @@ public class CompanyDAOImpl implements CompanyDAO {
         return result;
     }
 
+    /**
+     * Deletes a company from the database.
+     *
+     * @param company the company to delete
+     * @return the number of rows affected (1 if successful, 0 otherwise)
+     * @throws SQLException if a database error occurs
+     */
     @Override
     public int delete(Company company) throws SQLException {
         int result;
 
         try (Connection con = HikariConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("DELETE FROM company WHERE id = ?")
-        ) {
+             PreparedStatement ps = con.prepareStatement("DELETE FROM company WHERE id = ?")) {
+
             ps.setInt(1, company.getID());
             result = ps.executeUpdate();
         }
-
         return result;
-    }
-
-    public String getRentedCarCompany(int carID) throws SQLException {
-        String name = "No rented car company";
-
-        try (Connection con = HikariConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT id, name FROM company WHERE id = ?");
-             ResultSet rs = ps.executeQuery()
-        ) {
-            ps.setInt(1, carID);
-            if (rs.next()) {
-                name = rs.getString("name");
-            }
-        }
-
-        return name;
     }
 
     /**
