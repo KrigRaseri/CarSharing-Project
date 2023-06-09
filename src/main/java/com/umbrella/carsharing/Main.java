@@ -1,49 +1,35 @@
 package com.umbrella.carsharing;
 
 import com.beust.jcommander.JCommander;
-import com.umbrella.carsharing.dao.car.CarDAO;
-import com.umbrella.carsharing.dao.car.CarDAOImpl;
-import com.umbrella.carsharing.dao.company.CompanyDAO;
-import com.umbrella.carsharing.dao.company.CompanyDAOImpl;
-import com.umbrella.carsharing.dao.customer.CustomerDAO;
-import com.umbrella.carsharing.dao.customer.CustomerDAOImpl;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import com.umbrella.carsharing.database.CreateTables;
-import com.umbrella.carsharing.menu.CarSharingMenu;
-import com.umbrella.carsharing.menu.CarSharingMenuImpl;
+import com.umbrella.carsharing.menu.CarSharingMenuMain;
 
-import java.sql.SQLException;
-
+/**
+ * This program is to rent cars from a company, and save relevant data to a database. A manager can add companies and
+ * the cars that are offered by that company. The customer can choose the car to rent, check the car, or return the car.
+ * */
 public class Main {
     public static String db;
 
     public static void main(String[] args) {
-        try {
-            // Create instances of the DAO implementations
-            CompanyDAO companyDAO = new CompanyDAOImpl();
-            CarDAO carDAO = new CarDAOImpl();
-            CustomerDAO customerDAO = new CustomerDAOImpl();
+        CarSharingGuice carSharingGuice = new CarSharingGuice();
+        Injector injector = Guice.createInjector(carSharingGuice);
+        CarSharingMenuMain csm = injector.getInstance(CarSharingMenuMain.class);
 
-            // Create an instance of the CarSharingMenu implementation
-            CarSharingMenu carSharingMenu = new CarSharingMenuImpl();
+        JCommanderImpl jcc = new JCommanderImpl();
+        JCommander jc = JCommander.newBuilder().addObject(jcc).build();
+        jc.parse(args);
+        db = jcc.dbArgs == null ? "carsharing" : jcc.dbArgs;
 
-            // Inject the DAO dependencies into the menu
-            carSharingMenu.setCompanyDAO(companyDAO);
-            carSharingMenu.setCarDAO(carDAO);
-            carSharingMenu.setCustomerDAO(customerDAO);
+        // Create the required tables in the database
+        CreateTables.createCompanyTable();
+        CreateTables.createCarTable();
+        CreateTables.createCustomerTable();
 
-            JCommanderImpl jcc = new JCommanderImpl();
-            JCommander jc = JCommander.newBuilder().addObject(jcc).build();
-            jc.parse(args);
-            db = jcc.dbArgs == null ? "carsharing" : jcc.dbArgs;
-
-            CreateTables.createDBTable();
-            CreateTables.createCarTable();
-            CreateTables.createCustomerTable();
-
-            carSharingMenu.menuInit();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        // Initialize the car sharing menu
+        csm.menuInit();
     }
 }
