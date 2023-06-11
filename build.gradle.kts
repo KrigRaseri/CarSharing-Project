@@ -1,5 +1,8 @@
+
+
 plugins {
     id("java")
+    application
 }
 
 group = "org.umbrella"
@@ -27,3 +30,23 @@ dependencies {
 tasks.getByName<Test>("test") {
     useJUnitPlatform()
 }
+
+application {
+    mainClass.set("com.umbrella.carsharing.Main")
+}
+
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes(
+                "Main-Class" to application.mainClass.get(),
+                "Class-Path" to configurations.runtimeClasspath.get().joinToString(" ") {
+                    "libs/${it.name}"
+                }
+        )
+    }
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+}
+
+
+
