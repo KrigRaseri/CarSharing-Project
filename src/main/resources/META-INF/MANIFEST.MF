@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Main-Class: com.umbrella.carsharing.Main
+Class-Path: logback-core-1.2.11.jar error_prone_annotations-2.7.1.jar li
+ stenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar guava-31.0
+ .1-jre.jar j2objc-annotations-1.3.jar jcommander-1.82.jar junit-jupiter
+ -engine-5.8.1.jar junit-platform-engine-1.8.1.jar failureaccess-1.0.1.j
+ ar opentest4j-1.2.0.jar h2-1.4.200.jar checker-qual-3.12.0.jar aopallia
+ nce-1.0.jar junit-platform-commons-1.8.1.jar slf4j-api-1.7.32.jar guice
+ -7.0.0.jar junit-jupiter-api-5.8.1.jar logback-classic-1.2.11.jar jakar
+ ta.inject-api-2.0.1.jar jsr305-3.0.2.jar HikariCP-5.0.1.jar
+
