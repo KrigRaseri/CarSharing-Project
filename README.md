@@ -1,6 +1,6 @@
 Car Sharing System
 
-    @Author Krig Raseri (A pen name)
+    @Author Brandon Bilodeau AKA Krig Raseri
 
 The Car Sharing System is a Java-based application that facilitates car sharing between companies and users. 
 It provides functionalities for managing cars, companies, and user bookings. This project demonstrates the use of 
